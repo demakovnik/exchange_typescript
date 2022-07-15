@@ -12,15 +12,29 @@ echo "Starting installation of Docker"
 ################################## Centos Section #####################################################################
 
 if [[ $OS_NAME -eq "CentOS" ]]; then
-  if [[ $OS_VERSION == "8" ]]; then
-      sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
-      sudo dnf install --allowerasing docker-ce
-      sudo systemctl start docker
-      sudo systemctl enable docker
-  fi
+  sudo dnf update -y
+  sudo dnf install git -y
+  sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+  sudo dnf install --allowerasing docker-ce
+  sudo systemctl start docker
+  sudo systemctl enable docker
 fi
 
 ################################## End of Centos Section ###############################################################
+
+################################## Fedora Section ######################################################################
+
+if [[ $OS_NAME -eq "Fedora" ]]; then
+  sudo dnf update -y
+  sudo dnf install git -y
+  sudo dnf install dnf-plugins-core
+  sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  sudo dnf install docker-ce docker-ce-cli containerd.io
+  sudo systemctl start docker
+  sudo systemctl enable docker
+fi
+
+################################## End of Fedora Section ###############################################################
 
 ################################## Ubuntu Section ######################################################################
 
